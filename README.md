@@ -31,7 +31,7 @@ def validate_input(agent_input: dict):
             errors.append(f"{error['loc'][0]}:{error['msg']}")
         return errors
 
-# Example
+# Example - Valid Input
 test = {
     'name': "Abhinav",
     'age': 34,
@@ -39,6 +39,16 @@ test = {
     'query': "I have forgotten my password"
 }
 result = validate_input(test)
+
+# Example - Invalid Input (demonstrates error handling)
+sample_input = {
+    'name': "Sam",
+    'age': 34,
+    'email': 'samjohn@outlook-com',
+    'query': "I have forgotten my password and will need your help to reset it"
+}
+result = validate_input(sample_input)
+# Returns: ['email:value is not a valid email address [type=value_error, input_value=\'samjohn@outlook-com\', input_type=str]']
 ```
 
 ## Installation
