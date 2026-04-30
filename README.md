@@ -8,6 +8,7 @@ A simple and clean input validation system using Pydantic models, designed for u
 - **Mandatory Fields**: All input fields are required (strict validation)
 - **Query Constraints**: Query field enforces 5-100 character length
 - **Detailed Error Messages**: Clear error reporting with field names and validation messages
+- **Custom Validators**: Additional field-level validation using Pydantic's `@field_validator`
 - **Agentic Intake Flow**: Customer query form powered by OpenAI Agents, Pydantic validation, and Gradio
 
 ## Usage
@@ -66,6 +67,21 @@ On successful validation, the user-facing response is:
 Your query has been accepted and is under processing.
 ```
 
+## Custom Validation Example
+
+The `custom_validations.py` file shows how to add custom field-level validation with Pydantic's `@field_validator`.
+
+It validates that `account_id` is a positive integer and formats validation errors into simple messages:
+
+```python
+@field_validator("account_id")
+@classmethod
+def validate_account_id(cls, value):
+    if value <= 0:
+        raise ValueError("Account ID must be positive")
+    return value
+```
+
 ## Installation
 
 ```bash
@@ -82,6 +98,7 @@ uv pip install -r requirements.txt
 ## Project Structure
 
 - `pydantic-project.ipynb` - Jupyter notebook with validation implementation and test case
+- `custom_validations.py` - Python script demonstrating custom Pydantic field validators
 - `customer-query-project.ipynb` - Customer query intake workflow with agents, Pydantic validation, and Gradio UI
 
 ## License
